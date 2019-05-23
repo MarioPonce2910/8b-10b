@@ -2,7 +2,7 @@ module serialization(clk,rst,data_in,data_out);
     input clk,rst;
     input [7:0] data_in;
     output [9:0] data_out;
-    wire flag;
+    reg flag;
         reg [5:0] 5b/6b [31:0] [1:0];
         reg [3:0] 3b/4b [7:0] [1:0];
                 
@@ -133,12 +133,115 @@ module serialization(clk,rst,data_in,data_out);
 
     always@(posedge clk)
         begin
-            if(flag == 1)
-                begin
-                    for ( = ; ; ) begin
-                        
-                    end
-                end
+            if (rst) begin
+                flag <= 0;
+                data_out <= 10'b0000000000;
+                data_in <= 8b'b00000000;
+            end
+            else if (!rst) begin
+                 case(data_in)
+
+                     case 8'b00000000 :
+                        begin
+                            if (flag == 0) begin
+                                data_out <= 5b/6b [0] [1];
+                                flag <= 1;
+                            end 
+                            else if (flag == 1) begin
+                                data_out <= 5b/6b [0] [0];
+                                flag <= 0;
+                            end
+                        end
+
+                    case 8'b000000001 :
+                        begin
+                            if (flag == 0) begin
+                                data_out <= 5b/6b [1] [1];
+                                flag <= 1;
+                            end 
+                            else if (flag == 1) begin
+                                data_out <= 5b/6b [1] [0];
+                                flag <= 0;
+                            end
+                        end
+
+                        case 8'b00000010 :
+                        begin
+                            if (flag == 0) begin
+                                data_out <= 5b/6b [0] [1];
+                                flag <= 1;
+                            end 
+                            else if (flag == 1) begin
+                                data_out <= 5b/6b [0] [0];
+                                flag <= 0;
+                            end
+                        end
+
+                    case 8'b000000011 :
+                        begin
+                            if (flag == 0) begin
+                                data_out <= 5b/6b [1] [1];
+                                flag <= 1;
+                            end 
+                            else if (flag == 1) begin
+                                data_out <= 5b/6b [1] [0];
+                                flag <= 0;
+                            end
+                        end
+
+                        case 8'b00000100 :
+                        begin
+                            if (flag == 0) begin
+                                data_out <= 5b/6b [0] [1];
+                                flag <= 1;
+                            end 
+                            else if (flag == 1) begin
+                                data_out <= 5b/6b [0] [0];
+                                flag <= 0;
+                            end
+                        end
+
+                    case 8'b000000101 :
+                        begin
+                            if (flag == 0) begin
+                                data_out <= 5b/6b [1] [1];
+                                flag <= 1;
+                            end 
+                            else if (flag == 1) begin
+                                data_out <= 5b/6b [1] [0];
+                                flag <= 0;
+                            end
+                        end
+
+                        case 8'b00000110 :
+                        begin
+                            if (flag == 0) begin
+                                data_out <= 5b/6b [0] [1];
+                                flag <= 1;
+                            end 
+                            else if (flag == 1) begin
+                                data_out <= 5b/6b [0] [0];
+                                flag <= 0;
+                            end
+                        end
+
+                    case 8'b0000001 11 :
+                        begin
+                            if (flag == 0) begin
+                                data_out <= 5b/6b [1] [1];
+                                flag <= 1;
+                            end 
+                            else if (flag == 1) begin
+                                data_out <= 5b/6b [1] [0];
+                                flag <= 0;
+                            end
+                        end
+
+
+                     default:
+
+                 endcase
+            end 
         end
 
 
